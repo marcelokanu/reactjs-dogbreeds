@@ -1,14 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div>
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Hello World</h1>
-    </div>
-  );
-}
+import { BrowserRouter } from 'react-router-dom';
+
+import Routes from './routes';
+
+const App: React.FC = () => (
+  <BrowserRouter>
+    <Routes />
+  </BrowserRouter>
+);
 
 export default App;
