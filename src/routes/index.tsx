@@ -8,7 +8,7 @@ import Breed from '../pages/Breed';
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" exact component={ListBreeds} />
-    <Route path="/breed" component={Breed} />
+    <Route path="/breed/:id" component={Breed} />
   </Switch>
 );
 

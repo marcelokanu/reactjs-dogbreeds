@@ -8,6 +8,8 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 
+import { Link } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import api from '../../services/api';
 
@@ -16,9 +18,12 @@ const useStyles = makeStyles({
     minHeight: 345,
   },
   media: {
-    height: 340,
+    height: 400,
+    overflow: 'hidden',
   },
-  desc: {},
+  desc: {
+    minHeight: 40,
+  },
 });
 
 interface IProps {
@@ -31,20 +36,6 @@ const BreedCard: React.FC<IProps> = ({ id, title, temperament }: IProps) => {
   const classes = useStyles();
 
   const [imgBreed, setImgBreed] = useState();
-
-  // const [imgBreed, setImgBreed] = useState(() => {
-  //   const imgBreeds = localStorage.getItem('@BreedsExplorer:imgs');
-
-  //   if (imgBreeds) {
-  //     return JSON.parse(imgBreeds);
-  //   }
-
-  //   return [];
-  // });
-
-  // useEffect(() => {
-  //   localStorage.setItem('@BreedsExplorer:imgs', JSON.stringify(imgBreed));
-  // }, [imgBreed]);
 
   useEffect(() => {
     const config = { Authorization: process.env.API_HEADER_KEY };
@@ -60,29 +51,41 @@ const BreedCard: React.FC<IProps> = ({ id, title, temperament }: IProps) => {
       });
   }, [id]);
 
-  // console.log(imgBreed);
   return (
     <Card key={id} className={classes.root}>
-      <CardActionArea>
-        {!imgBreed ? (
-          <CircularProgress />
-        ) : (
-          <CardMedia className={classes.media} image={imgBreed} title={title} />
-        )}
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="h2">
-            {title}
-          </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-            className={classes.desc}
-          >
-            {temperament}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <Link
+        to={{
+          pathname: '/breed',
+          search: `?id=${id}`,
+        }}
+        color="inherit"
+      >
+        <CardActionArea>
+          {!imgBreed ? (
+            <CircularProgress />
+          ) : (
+            <CardMedia
+              className={classes.media}
+              component="img"
+              image={imgBreed}
+              title={title}
+            />
+          )}
+          <CardContent>
+            <Typography gutterBottom variant="h6" component="h2">
+              {title}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className={classes.desc}
+            >
+              {temperament}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Link>
     </Card>
   );
 };

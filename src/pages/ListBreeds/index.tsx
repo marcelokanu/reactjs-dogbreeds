@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
-import { Container, Box, TextField } from '@material-ui/core';
+import { Container, TextField, Typography } from '@material-ui/core';
+
 import Grid from '@material-ui/core/Grid';
 import BreedList from '../../components/BreedList';
 
@@ -66,26 +67,31 @@ const ListBreeds: React.FC = () => {
 
   return (
     <Container maxWidth="xl">
-      <Box display="flex" flexDirection="column">
-        <h1>List of Breeds</h1>
-        <TextField
-          id="outlined-basic"
-          label="breed filter"
-          variant="outlined"
-          onChange={handleFindBreed}
-        />
-        <Grid container spacing={2}>
-          {breeds.map((breed) => (
-            <Grid key={breed.id} item md={3}>
-              <BreedList
-                id={breed.id}
-                title={breed.name}
-                temperament={breed.temperament}
-              />
-            </Grid>
-          ))}
+      <Grid container spacing={1}>
+        <Grid item xs={10}>
+          <Typography variant="h3">List of Breeds</Typography>
         </Grid>
-      </Box>
+        <Grid item xs={2}>
+          <TextField
+            id="outlined-basic"
+            label="breed filter"
+            variant="outlined"
+            margin="dense"
+            onChange={handleFindBreed}
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
+        {breeds.map((breed) => (
+          <Grid key={breed.id} item md={4}>
+            <BreedList
+              id={breed.id}
+              title={breed.name}
+              temperament={breed.temperament}
+            />
+          </Grid>
+        ))}
+      </Grid>
     </Container>
   );
 };
